@@ -156,12 +156,29 @@
             </div>
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
-                <h2 id="堆栈在括号类型的算法应用——LeetCode-32-最长有效括号"><a href="#堆栈在括号类型的算法应用——LeetCode-32-最长有效括号" class="headerlink" title="堆栈在括号类型的算法应用——LeetCode 32  最长有效括号"></a>堆栈在括号类型的算法应用——LeetCode 32  最长有效括号</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">32.</span> 最长有效括号</span><br><span class="line">    给你一个只包含 <span class="string">&#x27;(&#x27;</span> 和 <span class="string">&#x27;)&#x27;</span> 的字符串，找出最长有效（格式正确且连续）括号子串的长度。</span><br><span class="line">    示例 <span class="number">1</span>：输入：s = <span class="string">&quot;(()&quot;</span>，输出：<span class="number">2</span>，解释：最长有效括号子串是 <span class="string">&quot;()&quot;</span></span><br><span class="line">    示例 <span class="number">2</span>：输入：s = <span class="string">&quot;)()())&quot;</span>，输出：<span class="number">4</span>，解释：最长有效括号子串是 <span class="string">&quot;()()&quot;</span></span><br><span class="line">    示例 <span class="number">3</span>：输入：s = <span class="string">&quot;&quot;</span>，输出：<span class="number">0</span></span><br><span class="line">    来源：力扣（LeetCode）</span><br><span class="line">    链接：https:<span class="comment">//leetcode-cn.com/problems/longest-valid-parentheses</span></span><br><span class="line">    著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
-
+                <h2 id="堆栈在括号类型的算法应用——LeetCode-32-最长有效括号"><a href="#堆栈在括号类型的算法应用——LeetCode-32-最长有效括号" class="headerlink" title="堆栈在括号类型的算法应用——LeetCode 32  最长有效括号"></a>堆栈在括号类型的算法应用——LeetCode 32  最长有效括号</h2><pre><code class="c++">32. 最长有效括号
+    给你一个只包含 &#39;(&#39; 和 &#39;)&#39; 的字符串，找出最长有效（格式正确且连续）括号子串的长度。
+    示例 1：输入：s = &quot;(()&quot;，输出：2，解释：最长有效括号子串是 &quot;()&quot;
+    示例 2：输入：s = &quot;)()())&quot;，输出：4，解释：最长有效括号子串是 &quot;()()&quot;
+    示例 3：输入：s = &quot;&quot;，输出：0
+    来源：力扣（LeetCode）
+    链接：https://leetcode-cn.com/problems/longest-valid-parentheses
+    著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+</code></pre>
 <p>这道题目实际上已经不是第一次见到了，从最早的学习数据结构的时候，在堆栈一章就是以括号匹配和算式匹配作为例子进行介绍。</p>
 <p>一做到这道题实际上就能联想到另一道LeetCode的简单题：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">20.</span> 有效的括号</span><br><span class="line">    给定一个只包括 <span class="string">&#x27;(&#x27;</span>，<span class="string">&#x27;)&#x27;</span>，<span class="string">&#x27;&#123;&#x27;</span>，<span class="string">&#x27;&#125;&#x27;</span>，<span class="string">&#x27;[&#x27;</span>，<span class="string">&#x27;]&#x27;</span> 的字符串 s ，判断字符串是否有效。</span><br><span class="line">	有效字符串需满足：左括号必须用相同类型的右括号闭合。左括号必须以正确的顺序闭合。</span><br><span class="line"> 	示例 <span class="number">1</span>：输入：s = <span class="string">&quot;()&quot;</span>，输出：<span class="literal">true</span></span><br><span class="line">    示例 <span class="number">2</span>：输入：s = <span class="string">&quot;()[]&#123;&#125;&quot;</span>，输出：<span class="literal">true</span></span><br><span class="line">	示例 <span class="number">3</span>：输入：s = <span class="string">&quot;(]&quot;</span>，输出：<span class="literal">false</span></span><br><span class="line">	示例 <span class="number">4</span>：输入：s = <span class="string">&quot;([)]&quot;</span>，输出：<span class="literal">false</span></span><br><span class="line">	示例 <span class="number">5</span>：输入：s = <span class="string">&quot;&#123;[]&#125;&quot;</span>，输出：<span class="literal">true</span></span><br><span class="line">    来源：力扣（LeetCode）</span><br><span class="line">    链接：https:<span class="comment">//leetcode-cn.com/problems/valid-parentheses</span></span><br><span class="line">    著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
-
+<pre><code class="c++">20. 有效的括号
+    给定一个只包括 &#39;(&#39;，&#39;)&#39;，&#39;&#123;&#39;，&#39;&#125;&#39;，&#39;[&#39;，&#39;]&#39; 的字符串 s ，判断字符串是否有效。
+    有效字符串需满足：左括号必须用相同类型的右括号闭合。左括号必须以正确的顺序闭合。
+     示例 1：输入：s = &quot;()&quot;，输出：true
+    示例 2：输入：s = &quot;()[]&#123;&#125;&quot;，输出：true
+    示例 3：输入：s = &quot;(]&quot;，输出：false
+    示例 4：输入：s = &quot;([)]&quot;，输出：false
+    示例 5：输入：s = &quot;&#123;[]&#125;&quot;，输出：true
+    来源：力扣（LeetCode）
+    链接：https://leetcode-cn.com/problems/valid-parentheses
+    著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+</code></pre>
 <p>这道难度较低的题目更相似于我们在数据结构刚接触堆栈的时候能接触的简单的数据结构的题目。这道题的解法比较简单，这里略去不表。</p>
 <p>为什么要用堆栈，因为这道题在后续的遍历过程中要于之前遍历的结果进行对比。这是很重要的一个原因导致堆栈的使用。当遍历时需要对前后结果进行对比时，实际上使用双指针也是一种方法，但是双指针的存在容易增加时间复杂度，而且，<strong>此处从后向前遍历只与最近的之前遍历结果相比较（因为括号需匹配最近的一个）</strong>。所以综上所述，使用一个堆栈是最佳的用于解决括号匹配的数据结构。</p>
 <p>接下来回到一开始的 LeetCode 32. 最长有效括号。这道题主要并不是在判断是否存在合法的括号序列，真正重要的是找到其中的合法括号序列并求出最长的序列。基于这样的要求，实际上就会出现几个比较难避开的坑：</p>
@@ -175,8 +192,31 @@
 <p>第一次我使用了<strong>当辅助栈为空</strong>作为条件，当栈为空就把此时的临时长度拿去与最大长度进行对比。这种情况是明显错误的，如果是”()()”的情况会直接导致临时长度在为2的情况就结束判断，所以需要将结束条件进行修改。</p>
 <p>第二次我使用了<strong>有效括号之后出现不合法括号</strong>作为条件，当在有效括号之后（即堆栈空了）出现非法括号时，就结束了向下检索并将临时长度去与最长长度进行对比。但这个条件只能通过不到50%的测试样例，因为很明显把它用来检索第四个样例会出现不小的问题。因为在有效括号之后出现了”((“的情况就会被我认为是不合法的括号，所以直接暂停向下检索并将临时长度与目前最长长度进行一个对比。</p>
 <p>所以，最后综合上述的情况，可以对算法进行一个最终的修改 —— <strong>始终保持栈底元素为当前已经遍历过的元素中最后一个没有被匹配的右括号的下标</strong>。也就是不向栈内送入符号而是向栈内输入下标，维护下标以获得最长长度。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">longestValidParentheses</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (s.<span class="built_in">size</span>() &lt; <span class="number">2</span>) <span class="comment">// 当长度小于2时实际上是肯定不会出现可以匹配的情况的</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> maxRes = <span class="number">0</span>; <span class="comment">// 用来作为目前最长长度</span></span><br><span class="line">        stack&lt;<span class="keyword">int</span>&gt; st; <span class="comment">// 用于辅助堆栈</span></span><br><span class="line">        st.<span class="built_in">push</span>(<span class="number">-1</span>); <span class="comment">// 因为一开始并没有起始的下标，所以将-1下标先送入堆栈做保留</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">size</span>(); i ++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (s[i] == <span class="string">&#x27;(&#x27;</span>) <span class="comment">// 当出现&#x27;(&#x27;时，可以将当前下标送入堆栈</span></span><br><span class="line">                st.<span class="built_in">push</span>(i); </span><br><span class="line">            <span class="keyword">else</span> <span class="comment">// 当出现&#x27;)&#x27;时，首先退出一个&#x27;(&#x27;的下标</span></span><br><span class="line">            &#123;</span><br><span class="line">                st.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">if</span> (st.<span class="built_in">empty</span>()) <span class="comment">// 若为空则保留此时的下标</span></span><br><span class="line">                    st.<span class="built_in">push</span>(i);</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    maxRes = <span class="built_in">max</span>(maxRes, i - st.<span class="built_in">top</span>()); <span class="comment">// 若不为空则对比此时最长长度</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxRes;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="c++">class Solution &#123;
+public:
+    int longestValidParentheses(string s) &#123;
+        if (s.size() &lt; 2) // 当长度小于2时实际上是肯定不会出现可以匹配的情况的
+            return 0;
+        int maxRes = 0; // 用来作为目前最长长度
+        stack&lt;int&gt; st; // 用于辅助堆栈
+        st.push(-1); // 因为一开始并没有起始的下标，所以将-1下标先送入堆栈做保留
+        for (int i = 0; i &lt; s.size(); i ++)
+        &#123;
+            if (s[i] == &#39;(&#39;) // 当出现&#39;(&#39;时，可以将当前下标送入堆栈
+                st.push(i); 
+            else // 当出现&#39;)&#39;时，首先退出一个&#39;(&#39;的下标
+            &#123;
+                st.pop();
+                if (st.empty()) // 若为空则保留此时的下标
+                    st.push(i);
+                else
+                    maxRes = max(maxRes, i - st.top()); // 若不为空则对比此时最长长度
+            &#125;
+        &#125;
+        return maxRes;
+    &#125;
+&#125;;
+</code></pre>
 <p>当然，本道题在这里使用堆栈的方法就能正常解决了，时间复杂度为O(n)，空间复杂度为O(n)。本题在解决时其实还可以使用动态规划的方法，但是实际上在面试笔试的过程中，要能找到最佳的解决方法是很重要的，但是如果能够养成一个<strong>一看到括号就能想到使用堆栈并解决这个问题</strong>，那也是一个很好的办法。虽然可能不是最优解，但可以保证下限，能顺利解决该问题。</p>
 
             </div>

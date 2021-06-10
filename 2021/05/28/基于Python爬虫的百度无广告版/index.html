@@ -170,8 +170,81 @@
 <p><img src="https://z3.ax1x.com/2021/06/10/22pVyT.png" alt="image-20210528134936921"></p>
 <p>​    经过了大量的研究，我发现所有的检索结果只要是非推广内容的，均是class=”result c-container new-pmd”，所以只需要对这一项使用正则表达式判断，即可将所有商业推广的内容去除。除此之外，我还发现了一个最简单的方法，那就是对百度检索出来的id进行判断，因为所有非商业推广的内容是会赋值id = “?”，这也就使得我可以用更简单的方法，只需要div中含有id项的即可进行筛选。</p>
 <p>部分代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_url</span>(<span class="params">keyword, pages</span>):</span></span><br><span class="line">    params = &#123;</span><br><span class="line">        <span class="string">&#x27;wd&#x27;</span>: <span class="built_in">str</span>(keyword)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># https://www.baidu.com/s?wd=xpath&amp;pn=21 这是查到第三页的例子</span></span><br><span class="line">    url = <span class="string">&quot;https://www.baidu.com/s&quot;</span></span><br><span class="line">    url = format_url(url, params)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">int</span>(pages) == <span class="number">1</span>:</span><br><span class="line">        page = <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        page = (<span class="built_in">int</span>(pages) - <span class="number">1</span>) * <span class="number">10</span></span><br><span class="line">    url = url + <span class="string">&#x27;&amp;pn=&#x27;</span> + <span class="built_in">str</span>(page)</span><br><span class="line">    <span class="built_in">print</span>(url)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> url</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_page</span>(<span class="params">url</span>):</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        headers = &#123;</span><br><span class="line">            <span class="string">&#x27;user-agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;accept-language&#x27;</span>: <span class="string">&#x27;zh-CN,zh;q=0.9&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;cache-control&#x27;</span>: <span class="string">&#x27;max-age=0&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;accept&#x27;</span>: <span class="string">&#x27;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        response = requests.get(url=url,headers=headers)</span><br><span class="line">        <span class="comment"># 更改编码方式，否则会出现乱码的情况</span></span><br><span class="line">        response.encoding = <span class="string">&quot;utf-8&quot;</span></span><br><span class="line">        <span class="keyword">if</span> response.status_code == <span class="number">200</span>:</span><br><span class="line">            <span class="keyword">return</span> response.text</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    <span class="keyword">except</span> RequestException:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse_page</span>(<span class="params">url, page</span>):</span></span><br><span class="line">    i = page</span><br><span class="line">    title = <span class="string">&quot;&quot;</span></span><br><span class="line">    sub_url = <span class="string">&quot;&quot;</span></span><br><span class="line">    abstract = <span class="string">&quot;&quot;</span></span><br><span class="line">    flag = <span class="number">11</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> i == <span class="number">1</span>:</span><br><span class="line">        flag = <span class="number">10</span></span><br><span class="line"></span><br><span class="line">    html = get_page(url)</span><br><span class="line">    content = etree.HTML(html)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,flag):</span><br><span class="line">        data = &#123;&#125;</span><br><span class="line">        res_title = content.xpath(<span class="string">&#x27;//*[@id=&quot;%d&quot;]/h3/a&#x27;</span> % ((i - <span class="number">1</span>) * <span class="number">10</span> + j))</span><br><span class="line">        <span class="keyword">if</span> res_title:</span><br><span class="line">            title = res_title[<span class="number">0</span>].xpath(<span class="string">&#x27;string(.)&#x27;</span>).replace(<span class="string">&#x27;\n&#x27;</span>,<span class="string">&#x27;&#x27;</span>).strip()</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;title是&quot;</span>)</span><br><span class="line">            <span class="built_in">print</span>(title)</span><br><span class="line"></span><br><span class="line">        sub_url = content.xpath(<span class="string">&#x27;//*[@id=&quot;%d&quot;]/h3/a/@href&#x27;</span> % ((i - <span class="number">1</span>) * <span class="number">10</span> + j))</span><br><span class="line">        <span class="keyword">if</span> sub_url:</span><br><span class="line">            sub_url = sub_url[<span class="number">0</span>]</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;sub_url是&quot;</span>)</span><br><span class="line">            <span class="built_in">print</span>(sub_url)</span><br><span class="line"></span><br><span class="line">        res_abstract = content.xpath(<span class="string">&#x27;//*[@id=&quot;%d&quot;]/div[@class=&quot;c-abstract&quot;]&#x27;</span>%((i-<span class="number">1</span>)*<span class="number">10</span>+j))</span><br><span class="line">        <span class="keyword">if</span> res_abstract:</span><br><span class="line">            abstract = res_abstract[<span class="number">0</span>].xpath(<span class="string">&#x27;string(.)&#x27;</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            res_abstract = content.xpath(<span class="string">&#x27;//*[@id=&quot;%d&quot;]/div/div[2]/div[@class=&quot;c-abstract&quot;]&#x27;</span>%((i-<span class="number">1</span>)*<span class="number">10</span>+j))</span><br><span class="line">            <span class="keyword">if</span> res_abstract:</span><br><span class="line">                abstract = res_abstract[<span class="number">0</span>].xpath(<span class="string">&#x27;string(.)&#x27;</span>)</span><br><span class="line">        data[<span class="string">&#x27;title&#x27;</span>] = title</span><br><span class="line">        data[<span class="string">&#x27;sub_url&#x27;</span>] = sub_url</span><br><span class="line">        data[<span class="string">&#x27;abstract&#x27;</span>] = abstract</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> sub_url != []:</span><br><span class="line">            <span class="keyword">yield</span> data</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code class="python">def get_url(keyword, pages):
+    params = &#123;
+        &#39;wd&#39;: str(keyword)
+    &#125;
+    # https://www.baidu.com/s?wd=xpath&amp;pn=21 这是查到第三页的例子
+    url = &quot;https://www.baidu.com/s&quot;
+    url = format_url(url, params)
+    if int(pages) == 1:
+        page = 1
+    else:
+        page = (int(pages) - 1) * 10
+    url = url + &#39;&amp;pn=&#39; + str(page)
+    print(url)
 
+    return url
+
+
+def get_page(url):
+    try:
+        headers = &#123;
+            &#39;user-agent&#39;: &#39;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36&#39;,
+            &#39;accept-language&#39;: &#39;zh-CN,zh;q=0.9&#39;,
+            &#39;cache-control&#39;: &#39;max-age=0&#39;,
+            &#39;accept&#39;: &#39;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8&#39;
+        &#125;
+        response = requests.get(url=url,headers=headers)
+        # 更改编码方式，否则会出现乱码的情况
+        response.encoding = &quot;utf-8&quot;
+        if response.status_code == 200:
+            return response.text
+        return None
+    except RequestException:
+        return None
+
+def parse_page(url, page):
+    i = page
+    title = &quot;&quot;
+    sub_url = &quot;&quot;
+    abstract = &quot;&quot;
+    flag = 11
+
+    if i == 1:
+        flag = 10
+
+    html = get_page(url)
+    content = etree.HTML(html)
+
+    for j in range(1,flag):
+        data = &#123;&#125;
+        res_title = content.xpath(&#39;//*[@id=&quot;%d&quot;]/h3/a&#39; % ((i - 1) * 10 + j))
+        if res_title:
+            title = res_title[0].xpath(&#39;string(.)&#39;).replace(&#39;\n&#39;,&#39;&#39;).strip()
+            print(&quot;title是&quot;)
+            print(title)
+
+        sub_url = content.xpath(&#39;//*[@id=&quot;%d&quot;]/h3/a/@href&#39; % ((i - 1) * 10 + j))
+        if sub_url:
+            sub_url = sub_url[0]
+            print(&quot;sub_url是&quot;)
+            print(sub_url)
+
+        res_abstract = content.xpath(&#39;//*[@id=&quot;%d&quot;]/div[@class=&quot;c-abstract&quot;]&#39;%((i-1)*10+j))
+        if res_abstract:
+            abstract = res_abstract[0].xpath(&#39;string(.)&#39;)
+        else:
+            res_abstract = content.xpath(&#39;//*[@id=&quot;%d&quot;]/div/div[2]/div[@class=&quot;c-abstract&quot;]&#39;%((i-1)*10+j))
+            if res_abstract:
+                abstract = res_abstract[0].xpath(&#39;string(.)&#39;)
+        data[&#39;title&#39;] = title
+        data[&#39;sub_url&#39;] = sub_url
+        data[&#39;abstract&#39;] = abstract
+
+        if sub_url != []:
+            yield data
+</code></pre>
 <p>在这样的处理之后，就基本得到了我所需的检索项标题，检索项链接，检索项摘要。在这样的情况下，再使用爬虫进行内容的爬取，就可以得到相应的结果。</p>
 <p><img src="C:\Users\15413\AppData\Roaming\Typora\typora-user-images\image-20210528135116063.png" alt="image-20210528135116063"></p>
 <p>在这样进行爬取之后，获得的结果就是没有商业推广结果的信息了，爬取结果均用json文件的形式保存下来方便之后使用。软件的编写应该对用户友好，所以此处我要新建一个用于前端输入检索关键字的页面，于是我需要使用到Django进行前后端的交互。最终得到了如下的结果：</p>

@@ -151,24 +151,129 @@
 </nav>
 
         <div id="main" >
-            <div class ="post_page_title_img" style="height: 25rem;background-image: url(https://z3.ax1x.com/2021/06/10/22SNin.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
-                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Hello World</h2></a>
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(https://z3.ax1x.com/2021/06/10/22VGc9.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >操作系统 - 生产者与消费者问题</h2></a>
             </div>
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
+                <p>在今年面试的时候，被问到了关于线程和进程的问题，结果当时还没学到这一块，所以理解很不透彻，最后只能和面试官承认自己这一块没咋好好了解。最近正好操作系统把生产者消费者问题讲完了，所以今天就来记录一下我写的生产者消费者问题的C语言版本。</p>
+<p>生产者消费者问题（英语：Producer-consumer problem），也称有限缓冲问题（英语：Bounded-buffer problem），是一个多线程同步问题的经典案例。该问题描述了共享固定大小缓冲区的两个线程——即所谓的“生产者”和“消费者”——在实际运行时会发生的问题。生产者的主要作用是生成一定量的数据放到缓冲区中，然后重复此过程。与此同时，消费者也在缓冲区消耗这些数据。该问题的关键就是要保证生产者不会在缓冲区满时加入数据，消费者也不会在缓冲区中空时消耗数据。</p>
+<pre><code class="c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;pthread.h&gt;
+#include &lt;semaphore.h&gt;
+
+#define true         1  
+#define producerNum  3              // 有3个生产者
+#define consumerNum  5              // 有5个消费者
+#define sleepTime    1              // 等待时间为1000ms
+
+#define N 3                         // 缓冲区容量
+int buffer[N] = &#123;0&#125;;                // 缓冲区
+int in = 0;                         // 入队点
+int out = 0;                        // 出队点
+int proCount = 0;                   // 产品计数器
+int value;
+sem_t mutex,                        // 缓冲区是否被占用的标志
+      empty,                        // 缓冲区剩余可放产品数量
+      full,                         // 缓冲区目前存在产品数量
+      proCmutex;                    // 是否同时进行生产的标志
+
+// 生产者实例
+void * producer(void * a)&#123;
+    while (true) &#123;
+        sem_wait(&amp;proCmutex);       // 如果正在进行其他生产则一直等待
+        proCount++;                 // 生产一个产品后产品数加1
+        sem_post(&amp;proCmutex);       // 结束生产
+        sem_wait(&amp;empty);           // 如果缓冲区已满，等待消费者消费产品
+        sem_getvalue(&amp;empty, &amp;value); 
+        if (value &lt; 0) 
+            printf(&quot;empty有问题, 为%d!\n&quot;, value);
+        sem_wait(&amp;mutex);
+        buffer[in] = proCount;      // 将产品存入缓冲区
+        in = (in + 1) % N;          // 指向下一个存放产品的缓冲位置
+        printf(&quot;生产一个产品, ID为%d, 缓冲区位置为%d\n&quot;, proCount, in);
+        sem_post(&amp;mutex);           // 释放缓冲区
+        sem_post(&amp;full);
+        sem_getvalue(&amp;empty, &amp;value);
+        if (value &lt; 0) 
+            printf(&quot;empty有问题, 为%d！\n&quot;, value);
+        sleep(sleepTime);           // 等待1s
+    &#125;
+&#125;
+
+// 消费者实例
+void * consumer(void *b) &#123;
+    while(true) &#123;
+        sem_wait(&amp;full);            // 缓冲区是否为空，如果为空，等待生产者生产
+        sem_getvalue(&amp;full, &amp;value);
+        if (value &lt; 0) &#123;
+            printf(&quot;full有问题, 为%d！\n&quot;, value);
+        &#125;
+        sem_wait(&amp;mutex);           // 如果缓冲区被占用，则一直等待
+        int nextc = buffer[out];    // 取出需要消费的产品
+        buffer[out] = 0;            //消费完将缓冲区设置为0
+        out = (out + 1) % N;        // 移向下一次消费的产品在缓冲区中的位置   
+        printf(&quot;消费一个产品, ID为%d, 缓冲区位置为%d\n&quot;, nextc, out);
+        sem_post(&amp;mutex);           // 释放缓冲区
+        sem_getvalue(&amp;empty, &amp;value);
+        if (value &lt; 0) 
+            printf(&quot;empty有问题, 为%d！\n&quot;, value);
+        sem_post(&amp;empty);
+        sleep(sleepTime);           // 等待1s
+    &#125;
+&#125;
+
+int main()
+&#123;
+    // 创建一个线程池，存放所有生产者和消费者实例所需要的占用的线程
+    pthread_t threadPool[producerNum + consumerNum];
+    int i;
+
+    if (sem_init(&amp;mutex, 0, 1) == -1) 
+        exit(1);
+    if (sem_init(&amp;empty, 0, N) == -1) 
+        exit(1);
+    if (sem_init(&amp;full, 0, 0) == -1) 
+        exit(1);
+    if (sem_init(&amp;proCmutex, 0, 1) == -1)
+        exit(1);
+
+    for (i = 0; i &lt; producerNum; i++) &#123;     // 创建生产者线程放入线程池
+        pthread_t temp;                     // 创建生产者线程
+        if (pthread_create(&amp;temp, NULL, producer, NULL) == -1) &#123;
+            printf(&quot;错误, 创建生产者%d号失败\n&quot;, i);
+            exit(1);
+        &#125;
+        threadPool[i] = temp;               // 在线程池中逐个存放生产者线程
+    &#125;
+
+    for (i = 0; i &lt; consumerNum; i++) &#123;     // 创建消费者线程放入线程池
+        pthread_t temp;                     // 创建消费者线程
+        if (pthread_create(&amp;temp, NULL, consumer, NULL) == -1) &#123;
+            printf(&quot;错误, 创建消费者%d号失败\n&quot;, i);
+            exit(1);
+        &#125;
+        threadPool[i+producerNum] = temp;   // 在线程池中逐个存放消费者线程
+    &#125;
+
+    void * result;                          // 运行线程池
+    for (i = 0; i &lt; producerNum + consumerNum; i++) &#123;
+        if (pthread_join(threadPool[i], &amp;result) == -1) &#123;
+            printf(&quot;fail to recollect\n&quot;);  // 逐个开启线程
+            exit(1);
+        &#125;
+    &#125;
+    return 0;
+&#125;
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>网上关于Java和Python的版本已经有很多了，但是关于C语言的并不是特别多。其中碰到了一些很奇怪的问题，就是在Windows环境下运行时（做出一些修改），会出现打印顺序完全错乱的情况</p>
+<p><img src="https://z3.ax1x.com/2021/06/10/22VElj.png" alt="win"></p>
+<p>而在Linux环境下运行则非常正确，运行时很有序。老师在指导我的时候认为是因为我在代码中采用的int变量导致出现的问题，因为int变量在编译为汇编语言之后，会出现汇编语言的语句较多，容易在运行中途被打断的情况，所以会导致这样的情况出现。</p>
+<p>如下为在Linux上运行的结果，分别为缓冲区长度为仅为1和为3。</p>
+<p><img src="https://z3.ax1x.com/2021/06/10/22VApQ.png" alt="li"></p>
+<p><img src="https://z3.ax1x.com/2021/06/10/22VFfg.png" alt="lii"></p>
 
             </div>
 
@@ -231,8 +336,8 @@ $('.btn_click_load').click(function() {
 -->
 <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'http://example.com/2021/05/01/hello-world/';  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = 'http://example.com/2021/05/01/hello-world/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = 'http://example.com/2021/06/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%94%9F%E4%BA%A7%E8%80%85%E4%B8%8E%E6%B6%88%E8%B4%B9%E8%80%85%E9%97%AE%E9%A2%98/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://example.com/2021/06/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%94%9F%E4%BA%A7%E8%80%85%E4%B8%8E%E6%B6%88%E8%B4%B9%E8%80%85%E9%97%AE%E9%A2%98/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
 </script>
 

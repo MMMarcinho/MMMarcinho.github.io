@@ -151,7 +151,7 @@
 </nav>
 
         <div id="main" >
-            <div class ="post_page_title_img" style="height: 25rem;background-image: url(https://wx4.sinaimg.cn/mw690/006WYq6ngy1gqz68h9couj31900u0dpj.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(https://z3.ax1x.com/2021/06/10/22SGZQ.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >LeetCode - 215.数组中的第K个最大元素以及课设作业中的使用场景</h2></a>
             </div>
             <!-- Post -->
@@ -172,9 +172,9 @@
 
 <p>堆排序的时间复杂度为 O(N logN)，但堆排序存在一个很大的问题 —— 堆的维护问题，实际场景中的数据是频繁发生变动的，而对于待排序序列的每次的增删改查回导致堆的维护需要重新进行一次，这在大多数情况下都是没有必要的。所以我们在实际情况中基本使用的还是快速排序。</p>
 <p>在我们本学期学习的软件工程大作业中，我们做了一个缘分匹配系统。缘分匹配系统，自然需要进行一个基础的匹配。但是匹配是存在一定难度的，因为我们后端只会一些基础的操作，很难根据同学自己写入的自我介绍分割关键词并进行加权匹配。所以我们采取了一个很简单但是很好用的方法，就是将每一个同学建立一个匹配编码，该编码仅包括1和0。例如下图，在同学感兴趣的方面我们则设置为 1，不感兴趣的方面则设置为 0。</p>
-<p><img src="https://wx2.sinaimg.cn/mw690/007fbJt1gy1grcvl0evz8j31gl0p5gqc.jpg" alt="img"></p>
+<p><img src="https://z3.ax1x.com/2021/06/10/22pSeg.jpg" alt="img"></p>
 <p>所以我们可以获得每个人都有一个用于匹配的编码。例如Jack可以根据他的填写获得的匹配码为 1010 1001 0011，而Rose根据填写获得了 1101 1111 0001。所以使用按位 <strong>同或 xnor</strong> （也可以使用 <strong>与 and</strong> ） 操作，可以获得Jack和Rose之间有哪些共同的兴趣点。若是对Jack进行匹配，则先让Jack的匹配码与每位同学的匹配码进行匹配，获得一个匹配后的值。每个进行匹配的同学与Jack都会有一个匹配值，此时只要对匹配值进行一个排序，再筛选出前8大的值，即可找出与Jack最匹配的8位同学。</p>
-<p><img src="https://wx1.sinaimg.cn/mw690/007fbJt1gy1grcvl0u6r9j30nv02dmx3.jpg" alt="img2"></p>
+<p><img src="https://z3.ax1x.com/2021/06/10/22SxOS.png" alt="img2"></p>
 <p>所以此时在编写代码的过程中就发现，取前K大的值其实是一个非常常用的算法问题，而快排则是一个非常好的解决方案，网上对快排有很多种优化的方案，最优秀的方案可以把时间复杂度降低到O(N)，此处暂略不表。</p>
 
             </div>

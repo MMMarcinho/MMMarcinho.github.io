@@ -1,0 +1,288 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/logo_miccall.png"/>
+	<link rel="shortcut icon" href="/img/logo_miccall.png">
+	
+			    <title>
+    Marco's Blog
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/mic_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    <meta name="keywords" content="方正 Marco" />
+    
+    	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	 
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/bg.jpg') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+			    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script async type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+    
+		
+<!-- Layouts -->
+
+
+
+<!--  代码渲染  -->
+<link rel="stylesheet" href="/css/prism_coy.css" />
+<link rel="stylesheet" href="/css/typo.css" />
+<!-- 文章页 -->
+<body class="is-loading">
+    <!-- Wrapper 外包 s-->
+    <div id="wrapper" class="fade-in">
+        <!-- Intro 头部显示 s -->
+        <!-- Intro 头部显示 e -->
+        <!-- Header 头部logo start -->
+        <header id="header">
+    <a href="/" class="logo">Marco</a>
+</header>
+        <!-- Nav 导航条 start -->
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow">主页</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">分类</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        
+	                    </ul>
+	        </li>
+	        
+	        <!-- archives  归档   --> 
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+		        <li>
+		            <a href="/about/" title="简历">
+		                简历
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/group/" title="团队">
+		                团队
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/gallery/" title="图库">
+		                图库
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/tag/" title="标签">
+		                标签
+		            </a>
+		        </li>
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+                    <li>
+                        <a title="github" href="https://github.com/mmmarco" target="_blank" rel="noopener">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a title="500px" href="https://www.zju.edu.cn" target="_blank" rel="noopener">
+                            <i class="icon fa fa-500px"></i>
+                        </a>
+                    </li>
+                    
+			</ul>
+</nav>
+
+        <div id="main" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(https://wx4.sinaimg.cn/mw690/006WYq6ngy1gr7p0wuc20j31mc17rqrl.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >微信小程序使用setInterval制作计时器后台延迟问题</h2></a>
+            </div>
+            <!-- Post -->
+            <div class="typo" style="padding: 3rem;">
+                <h2 id="微信小程序使用-setInterval-制作计时器后台延迟问题"><a href="#微信小程序使用-setInterval-制作计时器后台延迟问题" class="headerlink" title="微信小程序使用 setInterval  制作计时器后台延迟问题"></a>微信小程序使用 <code>setInterval </code> 制作计时器后台延迟问题</h2><p>之前参加2020年微信小程序应用开发大赛的时候写了一个用于校园足球的微信小程序——踢在浙大。</p>
+<p>在小程序的设计过程中出现了一个裁判工具的功能，简单地说就是裁判在比赛过程中使用裁判工具中秒表的功能，来记录在第几分钟发生了什么事情。举个例子，如下图就是比赛过程中记录的比赛事件。</p>
+<p><img src="https://wx4.sinaimg.cn/mw690/007fbJt1ly1grcw7qbxsij30bl0f4q2z.jpg" alt="// 图片    q"></p>
+<p>因为当时刚开始学习JavaScript，所以实际上有很多的内容一知半解甚至根本不懂但就要开始实现这样一个任务。在网上搜集了大量的资料之后最终终于发现可以使用 <code>setInterval</code> 来实现我所需的功能。<code>setInterval</code>与<code>setTimeout</code>的使用差别不大，参数都是一样的。区别就在于<code>setTimeout</code>是到时执行一次，<code>setInterval</code>是根据设置的时间来回调的，比如每秒回调一次。</p>
+<p>首先对开启计时的功能进行编写，开始计时就是将各个初始值归零并进行 <code>setInterval</code>的初始化设置。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 比赛开始，设置计时开始</span></span><br><span class="line"><span class="attr">begin</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> that = <span class="built_in">this</span></span><br><span class="line">  <span class="keyword">var</span> app = getApp()</span><br><span class="line">  <span class="built_in">clearInterval</span>(intt); <span class="comment">// 设置停止（暂停），时间重置，从00:00开始</span></span><br><span class="line">  that.setData(&#123;</span><br><span class="line">    <span class="attr">minute</span>: <span class="built_in">this</span>.data.minute,</span><br><span class="line">    <span class="attr">second</span>: <span class="built_in">this</span>.data.second,</span><br><span class="line">    <span class="attr">millisecond</span>: <span class="built_in">this</span>.data.millisecond,</span><br><span class="line">    <span class="attr">timecount</span>: <span class="built_in">this</span>.data.minute + <span class="string">&#x27;:&#x27;</span> + <span class="built_in">this</span>.data.second,</span><br><span class="line">  &#125;)</span><br><span class="line">  intt = <span class="built_in">setInterval</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; that.timer() &#125;, <span class="number">50</span>); <span class="comment">// 每 50 ms回调一次</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>接下来实现一些比较简单的功能，例如暂停计时，进入到下半场的时间（我校学生足球比赛为80分钟一场，所以半场时间为40分钟），计时器清零等。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 暂停计时</span></span><br><span class="line"> <span class="attr">stop</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="built_in">clearInterval</span>(intt);</span><br><span class="line"> &#125;,</span><br><span class="line">     </span><br><span class="line"> <span class="comment">// 进入下半场计时</span></span><br><span class="line"> <span class="attr">Reset</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">var</span> that = <span class="built_in">this</span></span><br><span class="line">   <span class="built_in">clearInterval</span>(intt);</span><br><span class="line">   <span class="built_in">this</span>.setData(&#123;</span><br><span class="line">     <span class="attr">minute</span>: <span class="number">40</span>,</span><br><span class="line">     <span class="attr">second</span>: <span class="number">0</span>,</span><br><span class="line">     <span class="attr">millisecond</span>: <span class="number">0</span>,</span><br><span class="line">     <span class="attr">timecount</span>: <span class="number">40</span> + <span class="string">&#x27;:&#x27;</span> + <span class="string">&#x27;0&#x27;</span> + <span class="number">0</span>,</span><br><span class="line">   &#125;)</span><br><span class="line"> &#125;,</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 清零计时器</span></span><br><span class="line"> <span class="attr">zero</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="built_in">clearInterval</span>(intt);</span><br><span class="line">   <span class="built_in">this</span>.setData(&#123;</span><br><span class="line">     <span class="attr">minute</span>: <span class="number">0</span>,</span><br><span class="line">     <span class="attr">second</span>: <span class="number">0</span>,</span><br><span class="line">     <span class="attr">millisecond</span>: <span class="number">0</span>,</span><br><span class="line">     <span class="attr">timecount</span>: <span class="string">&#x27;0&#x27;</span> + <span class="number">0</span> + <span class="string">&#x27;:&#x27;</span> + <span class="string">&#x27;0&#x27;</span> + <span class="number">0</span>,</span><br><span class="line">   &#125;)</span><br><span class="line"> &#125;,</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>最核心的函数功能也就是计时器功能。计时器的函数主要需要解决的问题就是每次给 millisecond 增加 5，也就是每次增加 5ms ，再通过<code>setInterval</code>来反复回调进行该过程，因为每次只增加 5ms，所以理论上计时相对精确。同时，计时器还需要有时间进位的一些规则因为一场比赛官方时间应该是 00:00 —— 80:00 ，但实际上经过补时之后一般会在00:00 —— 90:00 （但不会超过100分钟），所以此处不考虑使用小时，直接以分钟计时即可。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 计时器功能</span></span><br><span class="line">  <span class="attr">timer</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> that = <span class="built_in">this</span>;</span><br><span class="line">    that.setData(&#123;</span><br><span class="line">      <span class="attr">millisecond</span>: that.data.millisecond + <span class="number">5</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">if</span> (that.data.millisecond &gt;= <span class="number">100</span>) &#123;</span><br><span class="line">      that.setData(&#123;</span><br><span class="line">        <span class="attr">millisecond</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">second</span>: that.data.second + <span class="number">1</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (that.data.second &gt;= <span class="number">60</span>) &#123;</span><br><span class="line">      that.setData(&#123;</span><br><span class="line">        <span class="attr">second</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">minute</span>: that.data.minute + <span class="number">1</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (that.data.minute &lt; <span class="number">10</span> &amp;&amp; that.data.second &lt; <span class="number">10</span>) &#123;</span><br><span class="line">      that.setData(&#123;</span><br><span class="line">        <span class="attr">timecount</span>: <span class="string">&quot;0&quot;</span> + that.data.minute + <span class="string">&quot;:&quot;</span> + <span class="string">&quot;0&quot;</span> + that.data.second</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (that.data.minute &lt; <span class="number">10</span> &amp;&amp; that.data.second &gt; <span class="number">10</span>) &#123;</span><br><span class="line">      that.setData(&#123;</span><br><span class="line">        <span class="attr">timecount</span>: <span class="string">&quot;0&quot;</span> + that.data.minute + <span class="string">&quot;:&quot;</span> + that.data.second</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (that.data.minute &gt; <span class="number">10</span> &amp;&amp; that.data.second &lt; <span class="number">10</span>) &#123;</span><br><span class="line">      that.setData(&#123;</span><br><span class="line">        <span class="attr">timecount</span>: that.data.minute + <span class="string">&quot;:&quot;</span> + <span class="string">&quot;0&quot;</span> + that.data.second</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      that.setData(&#123;</span><br><span class="line">        <span class="attr">timecount</span>: that.data.minute + <span class="string">&quot;:&quot;</span> + that.data.second</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+<p>在实现了这些基本的函数之后，计时功能基本可以完成了，在直接测试过程中均没有发现任何问题。</p>
+<p><img src="https://wx1.sinaimg.cn/mw690/007fbJt1ly1grcw7qfbjbj30pq0ban1l.jpg" alt="// 图片    1 2 3"></p>
+<p>但是虽然实现了在该页面实现计时的功能，但我却发现，当小程序被切换到后台时，计时虽然在继续但是明显出现了延迟，实际的时间经过了十分钟而小程序内计时却不足十分钟。这对于用于足球比赛计时的小程序而言无疑是毁灭性打击，但是代码运行在小程序在当前页面时则不会出现任何问题，说明这个问题应该不是代码错误导致的。</p>
+<p>所以问题就变成了小程序在被切到后台时，会发生哪些事件。首先从小程序的 js 文件里可以看到有一系列的生命周期函数，最有可能与这个问题出现关联的生命周期函数应该是如下两个：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 生命周期函数--监听页面隐藏</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="attr">onHide</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;,</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 生命周期函数--监听页面卸载</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="attr">onUnload</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>但是如果以及涉及到了<code>onUnload()</code>函数，那说明小程序接下来的启动已经到了冷启动阶段，到了改阶段之后启动时出现的时间将会被清零，回归到最初的 data 中初始化的变量值。所以这里既然计时还在继续，就应该是处于一个热启动的状态。</p>
+<img src="https://res.wx.qq.com/wxdoc/dist/assets/img/page-lifecycle.2e646c86.png" style="zoom:50%;" />
+
+<p>通过微信开放文档可以看到，**<code>onHide()</code> 是小程序从前台进入后台时触发，也可以使用 <code>wx.onAppHide </code>绑定监听。**微信内定义的前后台是，当用户点击关闭，或者按了设备 Home 键离开微信，小程序并没有直接销毁，而是进入了后台；当再次进入微信或再次打开小程序，又会从后台进入前台。所以此处<code>onHide()</code>函数理论上会在小程序被切换到后台时触发。因为存在延时以及被后台结束的可能，所以微信官方文档里也介绍了其实小程序是不推荐做订阅推送的功能的。</p>
+<p>但是因为我在此处并没有对小程序的<code>onHide()</code>函数进行详细的定义，所以似乎不应该会产生任何的操作。但是当小程序进入到后台，先执行页面<code>onHide()</code>方法再执行应用<code>onHide()</code>方法；而当小程序从后台进入到前台，先执行应用<code>onShow()</code>方法再执行页面<code>onShow()</code>方法。所以反复切换的过程中不仅仅是<code>onHide()</code>，<code>onShow()</code>也是会被调用的函数。这种反复启动被称为<strong>热启动</strong>，根据分析，如果是热启动时小程序在后台界面并导致页面计时出现延迟的原因应该是在调用<code>onHide()</code>以及<code>onShow()</code>这两个生命周期函数。根据多次测试不同时长的后台计时，从延迟的时间相差不大来看，应该是存在一个时间基本固定的延时。从上图小程序的生命周期图片来看，<code>onShow()</code>和<code>onHide()</code>在切换时会出现一个Send Data的时间，所以我认为虽然<code>onShow()</code>和<code>onHide()</code>在我的文件里并没有编写任何的函数功能，但是由于存在一个Send Data的时间，所以导致了一个固定时间的延时。同时，当重新回到页面上时，也有可能会因为重新获取数据渲染页面导致出现不同程度的延时，这与网速以及手机性能都有关系。所以最佳的解决方案应该是强制将这个页面挂载在前台，且保持不息屏不随意切换页面，或者可以使用<code>onHide()</code>在切换到后台时记录当前时间，<code>onShow()</code>在切换到前台时获取当前时间并进行时间修改展示。</p>
+
+            </div>
+
+            <!-- Post Comments -->
+            
+    <!-- 使用 DISQUS_CLICK -->
+<div id="disqus-comment">
+    <div id="disqus_thread"></div>
+
+<!-- add animation -->
+<style>
+	.disqus_click_btn {
+            line-height: 30px;
+            margin: 0;
+            min-width: 50px;
+            padding: 0 14px;
+            display: inline-block;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0;
+            overflow: hidden;
+            will-change: box-shadow;
+            transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1);
+            outline: 0;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            vertical-align: middle;
+            border: 0;
+            background: rgba(158, 158, 158, .2);
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+            color: #fff;
+            background-color: #7EC0EE;
+            text-shadow: 0
+        }
+</style>
+	
+<div class="btn_click_load" id="disqus_bt"> 
+    <button class="disqus_click_btn">点击查看评论</button>
+</div>
+
+<!--
+<script type="text/javascript">
+$('.btn_click_load').click(function() {
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'http-miccall-tech'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    document.getElementById('disqus_bt').style.display = "none";
+});
+</script>
+-->
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://example.com/2021/06/02/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BD%BF%E7%94%A8setInterval%E5%88%B6%E4%BD%9C%E8%AE%A1%E6%97%B6%E5%99%A8%E5%90%8E%E5%8F%B0%E5%BB%B6%E8%BF%9F%E9%97%AE%E9%A2%98/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://example.com/2021/06/02/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BD%BF%E7%94%A8setInterval%E5%88%B6%E4%BD%9C%E8%AE%A1%E6%97%B6%E5%99%A8%E5%90%8E%E5%8F%B0%E5%BB%B6%E8%BF%9F%E9%97%AE%E9%A2%98/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+
+<script type="text/javascript">
+    $('.btn_click_load').click(function() {  //click to load comments
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document;
+            var s = d.createElement('script');
+            s.src = '//http-miccall-tech.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', + new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+        $('.btn_click_load').css('display','none');
+    });
+</script>
+</div>
+<style>
+    #disqus-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+
+        </div>
+        <!-- Copyright 版权 start -->
+                <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a target="_blank" rel="noopener" href="http://miccall.tech " style="border-bottom: none;">miccall</a></li>
+            </ul>
+            
+                <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+			
+        </div>
+    </div>
+</body>
+
+
+
+ 	
+</html>

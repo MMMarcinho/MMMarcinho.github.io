@@ -151,24 +151,18 @@
 </nav>
 
         <div id="main" >
-            <div class ="post_page_title_img" style="height: 25rem;background-image: url();background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
-                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Hello World</h2></a>
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(https://wx3.sinaimg.cn/mw690/006WYq6ngy1gqz68bj9q3j30kt0fm75x.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >setTimeout()详细解析</h2></a>
             </div>
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+                <h2 id="setTimeout-详细解析"><a href="#setTimeout-详细解析" class="headerlink" title="setTimeout() 详细解析"></a>setTimeout() 详细解析</h2><p>今年在面试的时候，被问到了一道关于 setTimeout() 方法的题目，题目大意是这样的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 当 setTimeout 的延迟为0的时候，是先执行哪一个函数</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    alert(<span class="string">&#x27;这里是第一个函数&#x27;</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line">alert(<span class="string">&#x27;这里是第二个函数&#x27;</span>);</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>这个问题大致可以看成是这样，也就是当 setTimeout() 中的延迟为 0 的时候，里面的函数会先执行还是外面的函数会先执行。</p>
+<p>其实这样输入一个为 0 的延时在代码当中显得比较奇怪，因为 0 会使得这个函数并没有意义，但是这里设置 0 毫秒会使得理论上延迟为0，那应该是按照顺序先进行第一个<code>alert</code>，再发生第二个<code>alert</code>。</p>
+<p>但在实操之后，可以发现是先进行了第二个<code>alert</code>，再进行第一个<code>alert</code>，仔细思考之后不难想出原因。根据现有的 JavaScript 引擎是单线程处理任务的，它会把任务放到队列中，并不会同步去执行，必须在完成一个任务后才开始另外一个任务。所以所有任务需要排队，前一个任务结束，才会执行后一个任务。如果前一个任务耗时很长，后一个任务就不得不一直等着。这和操作系统中经典的 <strong>消费者-生产者问题</strong> 是一样的。但浏览器是多线程工作的，一个浏览器至少实现三个常驻线程：JavaScript 引擎线程，GUI渲染线程，浏览器事件触发线程。</p>
+<p>对于一般的 <code>setTimeout(fn, millisec)</code> 而言，这个方法实际上是<strong>将要进行的函数放入到任务队列中，并在时间到达 millisec 之后 再把这个任务放到浏览器的 JavaScript 引擎线程中去。</strong>同时，HTML5 标准规定了<code>setTimeout()</code>的第二个参数的最小值（最短间隔），<strong>不得低于4毫秒</strong>，如果低于这个值，就会自动增加。所以实际上这里的 <code>setTimeout( fn, 0 )</code> 是与<code>setTimeout( fn, 4 )</code> 一样的（另外，对于那些DOM的变动（尤其是涉及页面重新渲染的部分），通常不会立即执行，而是每16毫秒执行一次。）。值得一提的是，实际上 <code>fn</code> 只是被放到了任务队列中去，必须等到当前代码执行完，主线程才会去执行这个任务，所以实际上可能延迟不止当前设置的时间，这个时间有可能只是最少延迟时间。</p>
 
             </div>
 
@@ -231,8 +225,8 @@ $('.btn_click_load').click(function() {
 -->
 <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'http://example.com/2021/06/09/hello-world/';  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = 'http://example.com/2021/06/09/hello-world/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = 'http://example.com/2021/06/01/setTimeout%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://example.com/2021/06/01/setTimeout%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
 </script>
 

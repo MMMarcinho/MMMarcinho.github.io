@@ -156,7 +156,54 @@
             </div>
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
-                
+                <h3 id="1-两数之和"><a href="#1-两数之和" class="headerlink" title="1. 两数之和"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum/">1. 两数之和</a></h3><blockquote>
+<p>给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。</p>
+<p>你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。你可以按任意顺序返回答案。</p>
+<p> 输入：nums = [2,7,11,15], target = 9<br>        输出：[0,1]<br>        解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] </p>
+<p> 输入：nums = [3,2,4], target = 6<br>        输出：[1,2]</p>
+<p> 来源：力扣（LeetCode）链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum">https://leetcode-cn.com/problems/two-sum</a></p>
+</blockquote>
+<p>这题在LeetCode上已经被写出花来了，仔细一看是LeetCode第一题那也难怪。</p>
+<p>最简单的思路其实刚学过C语言的同学就能写了，就是进行一个循环遍历，找出那两个值，这样时间复杂度直接变成O(N^2)，虽然好像没有浪费额外的空间，但是面试的时候这样写说不定直接被当成大一学生抬走了。</p>
+<h4 id="使用哈希表"><a href="#使用哈希表" class="headerlink" title="使用哈希表"></a>使用哈希表</h4><p>这个做法非常亲民，想到的难度也不高，只需要使用哈希表来存储每一个数字的下标，并根据当前值计算是否存在另一个与之能满足和的下标即可。</p>
+<pre><code class="c++">class Solution &#123;
+public:
+    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) &#123;
+        unordered_map&lt;int, int&gt; mp;
+        for (int i = 0; i &lt; nums.size(); i ++)
+        &#123;
+            if (mp.count(target - nums[i]))
+                return &#123;mp[target - nums[i]], i&#125;;
+            mp[nums[i]] = i;
+        &#125;
+        return &#123;&#125;;
+    &#125;
+&#125;;
+</code></pre>
+<p>时间复杂度：O(N)，N 是数组中的元素数量</p>
+<p>空间复杂度：O(N)，其中 N 是数组中的元素数量，主要是因为哈希表。</p>
+<h3 id="206-反转链表"><a href="#206-反转链表" class="headerlink" title="206. 反转链表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-linked-list/">206. 反转链表</a></h3><blockquote>
+<p>给你单链表的头节点 <code>head</code> ，请你反转链表，并返回反转后的链表。</p>
+<p> 输入：head = [1,2,3,4,5]<br>        输出：[5,4,3,2,1]</p>
+<p> 输入：head = [1,2]<br>        输出：[2,1]</p>
+</blockquote>
+<p>这是一道曾经令我苦不堪言的问题，因为这道题对于当时初学数据结构的我来说实在是太抽象了，还记得疫情期间在家学习数据结构因为这道题冥思苦想了很久。</p>
+<p>但实际上这道题也是有很多方法可以完成了，而且这题作为一个基本的功能实际上在很多进阶的题目里也其实可以利用一番，最重要的是它巧妙地利用了链表的性质，完成了对链表的反转，思维很巧妙。</p>
+<h4 id="递归法"><a href="#递归法" class="headerlink" title="递归法"></a>递归法</h4><pre><code class="c++">class Solution &#123;
+public:
+    ListNode* reverseList(ListNode* head) &#123;
+        if (head == nullptr || head-&gt;next == nullptr)
+            return head;
+        ListNode* temp = reverseList(head-&gt;next);
+        ListNode* p = head-&gt;next;
+        head-&gt;next = p-&gt;next;
+        p-&gt;next = head;
+        return temp;
+    &#125;
+&#125;;
+</code></pre>
+<p>其实递归的思路很适合用在链表和树的问题中。递归的思路一直都是，先写出递归结束的条件。这里因为如果链表长度仅为 1 的时候是无法继续往下递归的，所以链表在head-&gt;next为空的时候也要停止递归，并返回head。在判断结束之后就将除了head以外的反转结果当作一个新的链表结点temp，此时理论上temp指向的已经是最开始的链表的最后一个元素了，因为经过递归之后最后一个元素理论上才是现在被temp指向的那个元素。但head此时指向的next仍然是最开始的那个元素，也就是temp指向的顺序里的最后一个，这时候就需要把它们的指向反转，也就是head的next指向最后一位的next（也就是代码里的p的next == nullptr），然后再让p的next指向head，最后返回的链表是temp即可。</p>
+
             </div>
 
             <!-- Post Comments -->

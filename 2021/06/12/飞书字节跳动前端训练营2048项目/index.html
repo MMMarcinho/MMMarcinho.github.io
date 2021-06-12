@@ -150,7 +150,7 @@
             </div>
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
-                <h3 id="2048项目GitHub仓库"><a href="#2048项目GitHub仓库" class="headerlink" title="2048项目GitHub仓库"></a><a target="_blank" rel="noopener" href="https://github.com/caizhenghai/2048ForGroup13">2048项目GitHub仓库</a></h3><h3 id="2048项目Bilibili演示视频"><a href="#2048项目Bilibili演示视频" class="headerlink" title="2048项目Bilibili演示视频"></a><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1x541157Dt">2048项目Bilibili演示视频</a></h3><p>2020年11月，机缘巧合下看到了飞书（上海）在举办一个飞书字节跳动前端训练营，抱着试一试的态度去报了名结果很幸运地通过了筛选（四道题目的笔试，其中有一题我还不会做，有空一定写清楚了）。当时训练营布置的项目任务是小组成员完成一个2048小游戏，因为当时我稍微有一些前端开发的经验，于是就主要由我负责前端方面。</p>
+                <h3 id="2048项目GitHub仓库点这里"><a href="#2048项目GitHub仓库点这里" class="headerlink" title="2048项目GitHub仓库点这里"></a><a target="_blank" rel="noopener" href="https://github.com/caizhenghai/2048ForGroup13">2048项目GitHub仓库点这里</a></h3><h3 id="2048项目Bilibili演示视频点这里"><a href="#2048项目Bilibili演示视频点这里" class="headerlink" title="2048项目Bilibili演示视频点这里"></a><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1x541157Dt">2048项目Bilibili演示视频点这里</a></h3><p>2020年11月，机缘巧合下看到了飞书（上海）在举办一个飞书字节跳动前端训练营，抱着试一试的态度去报了名结果很幸运地通过了筛选（四道题目的笔试，其中有一题我还不会做，有空一定写清楚了）。当时训练营布置的项目任务是小组成员完成一个2048小游戏，因为当时我稍微有一些前端开发的经验，于是就主要由我负责前端方面。</p>
 <p>虽然一开始的本意是使用React进行一个搭建，但是因为小组里面其他负责前端的同学对这方面并不熟悉，并迅速找到了一个不错的可以运行的版本，于是就决定在给出的Demo基础上进行创新更改。没想到，最困难的事情是这个Demo是基于JQuery的，而我并没有接触过这方面的技术，可以说是又要重新学习一下这个“远古”的技术。</p>
 <h3 id="项目实现难点"><a href="#项目实现难点" class="headerlink" title="项目实现难点"></a>项目实现难点</h3><p>根据飞书给出的要求，我们从中选取了几个作为我们小组项目目标实现的功能，主要有以下几个：</p>
 <ul>
@@ -161,8 +161,7 @@
 </ul>
 <p>这几个要求理论上难度并不大，但是对于从未上手练习过 JQuery 的我来说其实难度不小。因为我当时主要学习的还是小程序端的开发，所以我在开发的过程中对生命周期函数的要求特别高，依赖程度也很大。但是我并没有接触过JQuery的生命周期函数，所以操作起来并不轻松。</p>
 <ol>
-<li><p>完成用户间通讯</p>
-<p>这一块主要由服务端的同学来进行负责，所以其实我参与得并不多。</p>
+<li><h4 id="完成用户间通讯"><a href="#完成用户间通讯" class="headerlink" title="完成用户间通讯"></a>完成用户间通讯</h4><p>这一块主要由服务端的同学来进行负责，所以其实我参与得并不多。</p>
 <pre><code class="javascript">/*发送数据到服务器端*/
 function sendScore(name,score,arr,max,max_x,max_y) &#123;
     /* 提取arr */
@@ -197,8 +196,7 @@ function sendScore(name,score,arr,max,max_x,max_y) &#123;
 </code></pre>
 <p>可以看到，此处互相交互的方法主要是采用了JSON的格式，与后台的联系也很方便。</p>
 </li>
-<li><p>展示对手的实时棋盘</p>
-<p>此处展示对手的棋盘就首先要在自己的页面上绘制一个区域放置它。</p>
+<li><h4 id="展示对手的实时棋盘"><a href="#展示对手的实时棋盘" class="headerlink" title="展示对手的实时棋盘"></a>展示对手的实时棋盘</h4><p>此处展示对手的棋盘就首先要在自己的页面上绘制一个区域放置它。</p>
 <pre><code class="html">&lt;!-- 对手视图 --&gt;
 &lt;div class=&quot;cell_wrap2&quot;&gt;
     &lt;div class=&quot;box2&quot;&gt;
@@ -272,8 +270,7 @@ function updateBoard()&#123;
 <p>可以看到，我成功将生成的item放到了box2结点里面，但实际上我虽然是完成了任务，在绘制过程中频繁调用修改了DOM，所以效率上实际上是惨不忍睹。</p>
 <p><img src="https://z3.ax1x.com/2021/06/10/2RQQv8.png"></p>
 </li>
-<li><p>根据双方信息，展示排行榜</p>
-<p>因为排行是一个动态更新的过程，所以理论上要每一次通讯的时候就进行一次监听。</p>
+<li><h4 id="根据双方信息，展示排行榜"><a href="#根据双方信息，展示排行榜" class="headerlink" title="根据双方信息，展示排行榜"></a>根据双方信息，展示排行榜</h4><p>因为排行是一个动态更新的过程，所以理论上要每一次通讯的时候就进行一次监听。</p>
 <pre><code class="javascript">/* 更新前端排行榜 */
 function updateRanking()&#123;
     var tmplist=myList; //玩家列表
@@ -331,8 +328,7 @@ function updateRanking()&#123;
 </code></pre>
 <p>虽然进行了一定程度的优化，但实际上还是要控制3.5次DOM，虽然相较之前有所好转，但还是效率过低。所以以后进行项目技术选型的时候，确实应该把 React 或 Vue 优先考虑。</p>
 </li>
-<li><p>进行惩罚（减小最大值）功能编写</p>
-<p>惩罚功能实际上就是对面达到某个值的时候将自己的最大值减半，反之亦然。</p>
+<li><h4 id="进行惩罚（减小最大值）功能编写"><a href="#进行惩罚（减小最大值）功能编写" class="headerlink" title="进行惩罚（减小最大值）功能编写"></a>进行惩罚（减小最大值）功能编写</h4><p>惩罚功能实际上就是对面达到某个值的时候将自己的最大值减半，反之亦然。</p>
 <p>完成这项功能需要多个函数配合工作</p>
 <p>锁定最大值位置函数</p>
 <pre><code class="javascript">// 得到最大的单元格的位置和大小
@@ -382,8 +378,7 @@ function updateRanking()&#123;
 </code></pre>
 <p>在这些函数的协同工作下，只需要服务端发来减小请求，即可使得另一端出现最大值减半的惩罚。</p>
 </li>
-<li><p>展示双方互动消息</p>
-<p>本来在这里的本意是设计一个简单的聊天窗口，但是能力有限所以只能设计一个简单的消息抖动</p>
+<li><h4 id="展示双方互动消息"><a href="#展示双方互动消息" class="headerlink" title="展示双方互动消息"></a>展示双方互动消息</h4><p>本来在这里的本意是设计一个简单的聊天窗口，但是能力有限所以只能设计一个简单的消息抖动</p>
 <pre><code class="javascript">function Notice(num) &#123;
   var item =
     &#39;&lt;div class=&quot;news_head&quot;&gt;警告&lt;/div&gt;&#39; +

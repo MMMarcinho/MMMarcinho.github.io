@@ -153,8 +153,8 @@
                 <h3 id="1-两数之和"><a href="#1-两数之和" class="headerlink" title="1. 两数之和"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum/">1. 两数之和</a></h3><blockquote>
 <p>给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。</p>
 <p>你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。你可以按任意顺序返回答案。</p>
-<p> 输入：nums = [2,7,11,15], target = 9<br>        输出：[0,1]<br>        解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] </p>
-<p> 输入：nums = [3,2,4], target = 6<br>        输出：[1,2]</p>
+<p>  输入：nums = [2,7,11,15], target = 9<br>        输出：[0,1]<br>        解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] </p>
+<p>  输入：nums = [3,2,4], target = 6<br>        输出：[1,2]</p>
 <p> 来源：力扣（LeetCode）链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum">https://leetcode-cn.com/problems/two-sum</a></p>
 </blockquote>
 <p>这题在LeetCode上已经被写出花来了，仔细一看是LeetCode第一题那也难怪。</p>
@@ -178,8 +178,8 @@ public:
 <p>空间复杂度：O(N)，其中 N 是数组中的元素数量，主要是因为哈希表。</p>
 <h3 id="206-反转链表"><a href="#206-反转链表" class="headerlink" title="206. 反转链表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-linked-list/">206. 反转链表</a></h3><blockquote>
 <p>给你单链表的头节点 <code>head</code> ，请你反转链表，并返回反转后的链表。</p>
-<p> 输入：head = [1,2,3,4,5]<br>        输出：[5,4,3,2,1]</p>
-<p> 输入：head = [1,2]<br>        输出：[2,1]</p>
+<p>  输入：head = [1,2,3,4,5]<br>        输出：[5,4,3,2,1]</p>
+<p>  输入：head = [1,2]<br>        输出：[2,1]</p>
 </blockquote>
 <p>这是一道曾经令我苦不堪言的问题，因为这道题对于当时初学数据结构的我来说实在是太抽象了，还记得疫情期间在家学习数据结构因为这道题冥思苦想了很久。</p>
 <p>但实际上这道题也是有很多方法可以完成了，而且这题作为一个基本的功能实际上在很多进阶的题目里也其实可以利用一番，最重要的是它巧妙地利用了链表的性质，完成了对链表的反转，思维很巧妙。</p>
@@ -197,6 +197,128 @@ public:
 &#125;;
 </code></pre>
 <p>其实递归的思路很适合用在链表和树的问题中。递归的思路一直都是，先写出递归结束的条件。这里因为如果链表长度仅为 1 的时候是无法继续往下递归的，所以链表在head-&gt;next为空的时候也要停止递归，并返回head。在判断结束之后就将除了head以外的反转结果当作一个新的链表结点temp，此时理论上temp指向的已经是最开始的链表的最后一个元素了，因为经过递归之后最后一个元素理论上才是现在被temp指向的那个元素。但head此时指向的next仍然是最开始的那个元素，也就是temp指向的顺序里的最后一个，这时候就需要把它们的指向反转，也就是head的next指向最后一位的next（也就是代码里的p的next == nullptr），然后再让p的next指向head，最后返回的链表是temp即可。</p>
+<h3 id="2-两数相加"><a href="#2-两数相加" class="headerlink" title="2. 两数相加"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/add-two-numbers/">2. 两数相加</a></h3><blockquote>
+<p>给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储<strong>一位</strong>数字。</p>
+<p>请你将两个数相加，并以相同形式返回一个表示和的链表。</p>
+<p>你可以假设除了数字 0 之外，这两个数都不会以 0 开头。</p>
+<p> 来源：力扣（LeetCode）<br>        链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/add-two-numbers">https://leetcode-cn.com/problems/add-two-numbers</a></p>
+<p> 输入：l1 = [2,4,3], l2 = [5,6,4]<br>        输出：[7,0,8]<br>        解释：342 + 465 = 807.</p>
+<p> 输入：l1 = [0], l2 = [0]<br>        输出：[0]</p>
+</blockquote>
+<p>这道题的难度并不大，但是要考虑周全需要写的代码就比较长了。同时这道题目里面有一个大坑，就是它的链表居然是反着表示一个数字的。例如：2 -&gt; 4 -&gt; 3，并不是243，而是342。虽然这样的设置对解题者来说实际上是降低了难度，但是也造成了我根本没想到居然会有这样的设计。</p>
+<p>但是整道题的难度不大，如果面试的时候考这道题目也太中奖了吧。</p>
+<pre><code class="c++">/**
+ * Definition for singly-linked list.
+ * struct ListNode &#123;
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) &#123;&#125;
+ *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;
+ *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) &#123;
+        ListNode* res = new ListNode(-1);
+        ListNode* ret = res;
+        int carry = 0, sum;
+        while (l1 != nullptr &amp;&amp; l2 != nullptr)
+        &#123;
+            sum = (l1-&gt;val + l2-&gt;val + carry) % 10;
+            ListNode* p = new ListNode(sum);
+            res-&gt;next = p;
+            carry = (l1-&gt;val + l2-&gt;val + carry) / 10;
+            l1 = l1-&gt;next;
+            l2 = l2-&gt;next;
+            res = res-&gt;next;
+            res-&gt;next = nullptr;
+        &#125;
+        while (l1 != nullptr)
+        &#123;
+            sum = (l1-&gt;val + carry) % 10;
+            carry = (l1-&gt;val + carry) / 10;
+            ListNode* p = new ListNode(sum);
+            res-&gt;next = p;
+            l1 = l1-&gt;next;
+            res = res-&gt;next;
+            res-&gt;next = nullptr;
+        &#125;
+        while (l2 != nullptr)
+        &#123;
+            sum = (l2-&gt;val + carry) % 10;
+            carry = (l2-&gt;val + carry) / 10;
+            ListNode* p = new ListNode(sum);
+            res-&gt;next = p;
+            l2 = l2-&gt;next;
+            res = res-&gt;next;
+            res-&gt;next = nullptr;
+        &#125;
+        if (carry &gt; 0)
+        &#123;
+            ListNode* p = new ListNode(carry);
+            res-&gt;next = p;
+            res = res-&gt;next;
+            res-&gt;next = nullptr;
+        &#125;
+        return ret-&gt;next;
+    &#125;
+&#125;;
+</code></pre>
+<h3 id="20-有效的括号"><a href="#20-有效的括号" class="headerlink" title="20. 有效的括号"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/valid-parentheses/">20. 有效的括号</a></h3><blockquote>
+<p> 给定一个只包括 ‘(‘，’)’，’{‘，’}’，’[‘，’]’ 的字符串 s ，判断字符串是否有效。</p>
+<p> 有效字符串需满足：</p>
+<p> 左括号必须用相同类型的右括号闭合。<br>        左括号必须以正确的顺序闭合。</p>
+<p> 来源：力扣（LeetCode）<br>        链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/valid-parentheses">https://leetcode-cn.com/problems/valid-parentheses</a></p>
+<p> 输入：s = “()”<br>        输出：true</p>
+<p> 输入：s = “()[]{}”<br>        输出：true</p>
+</blockquote>
+<p>这道题之前有一章很详细的 <strong><a target="_blank" rel="noopener" href="http://marcooouri.top/2021/05/25/%E6%9C%80%E9%95%BF%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7%E4%BB%A5%E5%8F%8A%E5%A0%86%E6%A0%88%E5%9C%A8%E6%8B%AC%E5%8F%B7%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/">博客</a></strong> 讲解过了，还讲到了其中的一些变形和难度增加的题目。</p>
+<pre><code class="c++">class Solution &#123;
+public:
+    bool isValid(string s) &#123;
+        stack&lt;int&gt; st;
+        for (int i = 0; i &lt; s.size(); i ++)
+        &#123;
+            if (s[i] == &#39;(&#39; || s[i] == &#39;[&#39; || s[i] == &#39;&#123;&#39;)
+                st.push(s[i]);
+            else if (s[i] == &#39;)&#39;)
+            &#123;
+                if (st.empty() || st.top() != &#39;(&#39;)
+                    return false;
+                st.pop();
+            &#125;
+            else if (s[i] == &#39;]&#39;)
+            &#123;
+                if (st.empty() || st.top() != &#39;[&#39;)
+                    return false;
+                st.pop();
+            &#125;
+            else if (s[i] == &#39;&#125;&#39;)
+            &#123;
+                if (st.empty() || st.top() != &#39;&#123;&#39;)
+                    return false;
+                st.pop();
+            &#125;
+        &#125; 
+        return st.empty();
+    &#125;
+&#125;;
+</code></pre>
+<h3 id="3-无重复字符的最长子串"><a href="#3-无重复字符的最长子串" class="headerlink" title="3. 无重复字符的最长子串"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/">3. 无重复字符的最长子串</a></h3><blockquote>
+<p> 给定一个字符串，请你找出其中不含有重复字符的 <strong>最长子串</strong> 的长度。</p>
+<p> 输入: s = “abcabcbb”<br>        输出: 3<br>        解释: 因为无重复字符的最长子串是 “abc”，所以其长度为 3。</p>
+</blockquote>
+<pre><code class="c++">
+</code></pre>
+<h3 id="5-最长回文子串"><a href="#5-最长回文子串" class="headerlink" title="5. 最长回文子串"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-palindromic-substring/">5. 最长回文子串</a></h3><blockquote>
+<p>给你一个字符串 <code>s</code>，找到 <code>s</code> 中最长的回文子串。</p>
+<p> 输入：s = “babad”<br>        输出：”bab”<br>        解释：”aba” 同样是符合题意的答案。</p>
+<p> 输入：s = “cbbd”<br>        输出：”bb”</p>
+<p> 输入：s = “a”<br>        输出：”a”</p>
+</blockquote>
+<p>在剑指Offer里应该就刷到过这道题，给当时的我留下了很深的印象。其实这道题也不能算是在考察字符串的能力，最根本的还是在考察动态规划的能力。动态规划算是一个常考的点了，去年认真刷了很多关于动态规划的题目，最后终于有所感悟，然后今年因为一些事情没有去复习于是又忘得差不多了……</p>
+<p>这里需要使用动态规划的思想，设置一个二维dp数组，这个二维数组代表了从 i 到 j 是否为回文字符串，若是则为<code>true</code>。至于如何判断是否为回文字符串，则要分不同情况进行处理。</p>
 
             </div>
 
